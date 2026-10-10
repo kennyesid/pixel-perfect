@@ -45,7 +45,7 @@ export class DatabaseService<T extends BaseEntity> {
   async create(item: Omit<T, "id" | "createdAt" | "updatedAt">): Promise<T> {
     try {
       const row = this.hasGroupId ? { ...item, groupId: this.groupId } : item;
-      const { data, error } = await supabase.from(this.tableName).insert([row]).select().single();
+      const { data, error } = await supabase.from(this.tableName).insert([row] as never).select().single();
       if (error) throw error;
       return data as T;
     } catch (e) {
@@ -56,7 +56,7 @@ export class DatabaseService<T extends BaseEntity> {
 
   async update(column: keyof T & string, value: unknown, updates: Partial<Omit<T, "id">>): Promise<T | null> {
     try {
-      let query = supabase.from(this.tableName).update(updates).eq(column as string, value as never);
+      let query = supabase.from(this.tableName).update(updates as never).eq(column as string, value as never);
       if (this.hasGroupId) query = query.eq("groupId", this.groupId);
       const { data, error } = await query.select().maybeSingle();
       if (error) throw error;
