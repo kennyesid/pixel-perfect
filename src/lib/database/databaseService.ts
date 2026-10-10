@@ -27,7 +27,7 @@ export class DatabaseService<T extends BaseEntity> {
 
   async getByField(column: keyof T & string, value: unknown): Promise<T | null> {
     try {
-      let query = supabase.from(this.tableName).select("*").eq(column, value);
+      let query = supabase.from(this.tableName).select("*").eq(column as string, value as never);
       if (this.hasGroupId) query = query.eq("groupId", this.groupId);
       const { data, error } = await query.maybeSingle();
       if (error) throw error;
@@ -56,7 +56,7 @@ export class DatabaseService<T extends BaseEntity> {
 
   async update(column: keyof T & string, value: unknown, updates: Partial<Omit<T, "id">>): Promise<T | null> {
     try {
-      let query = supabase.from(this.tableName).update(updates).eq(column, value);
+      let query = supabase.from(this.tableName).update(updates).eq(column as string, value as never);
       if (this.hasGroupId) query = query.eq("groupId", this.groupId);
       const { data, error } = await query.select().maybeSingle();
       if (error) throw error;
@@ -69,7 +69,7 @@ export class DatabaseService<T extends BaseEntity> {
 
   async delete(column: keyof T & string, value: unknown): Promise<boolean> {
     try {
-      let query = supabase.from(this.tableName).delete().eq(column, value);
+      let query = supabase.from(this.tableName).delete().eq(column as string, value as never);
       if (this.hasGroupId) query = query.eq("groupId", this.groupId);
       const { error } = await query;
       if (error) throw error;
