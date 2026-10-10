@@ -1,6 +1,19 @@
 import { Link } from "@tanstack/react-router";
-import { Moon, Sun } from "lucide-react";
+import { Moon, ShoppingBag, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useCart } from "@/lib/cart";
+
+function CartLink() {
+  const { count } = useCart();
+  return (
+    <Link to="/carrito" aria-label="Ver carrito" className="relative grid h-10 w-10 place-items-center rounded-full border border-border bg-card text-foreground transition hover:scale-105 hover:border-primary">
+      <ShoppingBag className="h-5 w-5" />
+      {count > 0 && (
+        <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-primary px-1 text-xs font-bold text-primary-foreground">{count}</span>
+      )}
+    </Link>
+  );
+}
 
 function ThemeToggle() {
   const [dark, setDark] = useState(false);
@@ -37,6 +50,7 @@ export function Navbar() {
         </div>
         <div className="flex items-center gap-3">
           <ThemeToggle />
+          <CartLink />
           <Link to="/menu" className="rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-soft transition hover:-translate-y-0.5 hover:shadow-lift">
             Pedir ahora
           </Link>
