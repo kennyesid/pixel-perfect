@@ -29,10 +29,11 @@ function Home() {
   const featured = products.filter((p) => p.isFeatured).slice(0, 8);
   const heroImgRef = useRef<HTMLImageElement>(null);
 
-  // Efecto parallax: la imagen se mueve lentamente mientras la portada sube al hacer scroll.
+  // La foto recorre el 65% del desplazamiento, separándose claramente del texto.
   useEffect(() => {
     const img = heroImgRef.current;
     if (!img) return;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let raf = 0;
     const update = () => {
       raf = 0;
@@ -40,8 +41,8 @@ function Home() {
       if (!section) return;
       const rect = section.getBoundingClientRect();
       if (rect.bottom < 0 || rect.top > window.innerHeight) return;
-      const progress = Math.min(1, Math.max(0, -rect.top / rect.height));
-      img.style.transform = `translate3d(0, ${progress * 140}px, 0) scale(1.12)`;
+      const distance = reducedMotion.matches ? 0 : Math.min(rect.height, Math.max(0, -rect.top)) * 0.65;
+      img.style.transform = `translate3d(0, ${distance}px, 0) scale(1.12)`;
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update);
@@ -49,9 +50,11 @@ function Home() {
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
+    reducedMotion.addEventListener("change", onScroll);
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+      reducedMotion.removeEventListener("change", onScroll);
       if (raf) cancelAnimationFrame(raf);
     };
   }, []);
