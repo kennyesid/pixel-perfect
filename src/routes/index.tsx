@@ -29,7 +29,7 @@ function Home() {
   const featured = products.filter((p) => p.isFeatured).slice(0, 8);
   const heroImgRef = useRef<HTMLImageElement>(null);
 
-  // La foto recorre el 65% del desplazamiento, separándose claramente del texto.
+  // El desplazamiento y el acercamiento mantienen el efecto visible en monitores grandes.
   useEffect(() => {
     const img = heroImgRef.current;
     if (!img) return;
@@ -41,8 +41,11 @@ function Home() {
       if (!section) return;
       const rect = section.getBoundingClientRect();
       if (rect.bottom < 0 || rect.top > window.innerHeight) return;
-      const distance = reducedMotion.matches ? 0 : Math.min(rect.height, Math.max(0, -rect.top)) * 0.65;
-      img.style.transform = `translate3d(0, ${distance}px, 0) scale(1.12)`;
+      const scroll = Math.min(rect.height, Math.max(0, -rect.top));
+      const progress = scroll / rect.height;
+      const distance = reducedMotion.matches ? 0 : scroll * 0.75;
+      const scale = reducedMotion.matches ? 1.06 : 1.06 + progress * 0.24;
+      img.style.transform = `translate3d(0, ${distance}px, 0) scale(${scale})`;
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update);
@@ -69,10 +72,10 @@ function Home() {
           width={1600}
           height={1008}
           className="absolute inset-0 -z-10 h-full w-full object-cover will-change-transform"
-          style={{ transform: "scale(1.12)" }}
+          style={{ transform: "scale(1.06)" }}
         />
         <div className="hero-overlay absolute inset-0 -z-10" />
-        <div className="mx-auto flex min-h-[80vh] max-w-7xl flex-col justify-center px-5 py-24 text-hero-foreground">
+        <div className="mx-auto flex min-h-[calc(100svh-6rem)] max-w-7xl flex-col justify-center px-5 py-20 text-hero-foreground">
           <p className="animate-rise mb-4 text-sm font-bold uppercase tracking-[0.3em] text-secondary">Crujiente · Dulce · Irresistible</p>
           <h1 className="animate-rise max-w-2xl text-5xl font-extrabold leading-[0.95] md:text-7xl [animation-delay:100ms]">
             Waffles & pollo <span className="text-primary">como nunca</span> antes.
