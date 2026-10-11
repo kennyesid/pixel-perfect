@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import hero from "@/assets/hero.jpg";
+import { useEffect, useRef } from "react";
+import hero from "@/assets/hero-waffle.jpg";
 import { categoriesQuery } from "@/services/categoryService";
 import { productsQuery } from "@/services/productService";
 import { categoryImages } from "@/lib/catalog";
@@ -26,11 +27,47 @@ function Home() {
   const { data: categories } = useSuspenseQuery(categoriesQuery);
   const { data: products } = useSuspenseQuery(productsQuery);
   const featured = products.filter((p) => p.isFeatured).slice(0, 8);
+  const heroImgRef = useRef<HTMLImageElement>(null);
+
+  // Efecto parallax: la imagen se mueve lentamente mientras la portada sube al hacer scroll.
+  useEffect(() => {
+    const img = heroImgRef.current;
+    if (!img) return;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const section = img.parentElement;
+      if (!section) return;
+      const rect = section.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+      const progress = Math.min(1, Math.max(0, -rect.top / rect.height));
+      img.style.transform = `translate3d(0, ${progress * 140}px, 0) scale(1.12)`;
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
 
   return (
     <>
       <section className="relative isolate overflow-hidden bg-hero">
-        <img src={hero} alt="Waffle con helado y pollo crujiente" width={1600} height={1008} className="absolute inset-0 -z-10 h-full w-full object-cover" />
+        <img
+          ref={heroImgRef}
+          src={hero}
+          alt="Waffle artesanal con fresas, mantequilla y miel de maple"
+          width={1600}
+          height={1008}
+          className="absolute inset-0 -z-10 h-full w-full object-cover will-change-transform"
+          style={{ transform: "scale(1.12)" }}
+        />
         <div className="hero-overlay absolute inset-0 -z-10" />
         <div className="mx-auto flex min-h-[80vh] max-w-7xl flex-col justify-center px-5 py-24 text-hero-foreground">
           <p className="animate-rise mb-4 text-sm font-bold uppercase tracking-[0.3em] text-secondary">Crujiente · Dulce · Irresistible</p>
