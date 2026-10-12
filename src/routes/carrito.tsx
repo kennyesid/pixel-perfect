@@ -95,7 +95,14 @@ function CartPage() {
           {locStatus === "loading" ? "Buscando tu ubicación…" : km === null ? "Usar mi ubicación" : "Actualizar ubicación"}
         </button>
         {locStatus === "error" && <p className="mt-2 text-xs text-destructive">No pudimos obtener tu ubicación. Revisa los permisos del navegador.</p>}
-        <p className="mt-2 text-xs text-muted-foreground">Envío: 1 por cada km desde nuestra tienda (Av. 10 #36, El Alto).</p>
+        <div className="mt-4 overflow-hidden rounded-xl border border-border">
+          <ClientOnly fallback={<div className="grid h-72 place-items-center text-sm text-muted-foreground">Cargando mapa…</div>}>
+            <Suspense fallback={<div className="grid h-72 place-items-center text-sm text-muted-foreground">Cargando mapa…</div>}>
+              <DeliveryMap position={pos} onChange={setLocation} />
+            </Suspense>
+          </ClientOnly>
+        </div>
+        <p className="mt-2 text-xs text-muted-foreground">Toca el mapa o arrastra el marcador rojo para indicar dónde entregamos. Envío: 1 por cada km desde nuestra tienda (Av. 10 #36, El Alto).</p>
         <div className="mt-4 flex justify-between border-t border-border pt-4 text-xl font-extrabold"><span>Total</span><span className="text-primary">{formatPrice(total + fee)}</span></div>
         <button className="mt-6 w-full rounded-full bg-primary py-4 font-bold text-primary-foreground shadow-lift transition hover:-translate-y-0.5" onClick={() => alert("¡Pedido recibido! Pronto habilitaremos el pago en línea.")}>
           Confirmar pedido
