@@ -1,7 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, ClientOnly, Link } from "@tanstack/react-router";
+import { lazy, Suspense, useState } from "react";
 import { MapPin, Minus, Plus, Trash2 } from "lucide-react";
 import { deliveryFee, distanceKm, STORE_LOCATION } from "@/lib/delivery";
+
+const DeliveryMap = lazy(() => import("@/components/DeliveryMap"));
 import { useCart } from "@/lib/cart";
 import { formatPrice, productImage } from "@/lib/catalog";
 import type { Product } from "@/types";
@@ -23,15 +25,22 @@ export const Route = createFileRoute("/carrito")({
 function CartPage() {
   const { items, total, count, setQty, remove, clear } = useCart();
   const [km, setKm] = useState<number | null>(null);
+  const [pos, setPos] = useState<{ lat: number; lng: number } | null>(null);
   const [locStatus, setLocStatus] = useState<"idle" | "loading" | "error">("idle");
   const fee = km === null ? 0 : deliveryFee(km);
+
+  const setLocation = (p: { lat: number; lng: number }, d: number) => {
+    setPos(p);
+    setKm(d);
+  };
 
   const locate = () => {
     if (!navigator.geolocation) return setLocStatus("error");
     setLocStatus("loading");
     navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        setKm(distanceKm(STORE_LOCATION, { lat: pos.coords.latitude, lng: pos.coords.longitude }));
+      (p) => {
+        const coords = { lat: p.coords.latitude, lng: p.coords.longitude };
+        setLocation(coords, distanceKm(STORE_LOCATION, coords));
         setLocStatus("idle");
       },
       () => setLocStatus("error"),
@@ -86,7 +95,14 @@ function CartPage() {
           {locStatus === "loading" ? "Buscando tu ubicación…" : km === null ? "Usar mi ubicación" : "Actualizar ubicación"}
         </button>
         {locStatus === "error" && <p className="mt-2 text-xs text-destructive">No pudimos obtener tu ubicación. Revisa los permisos del navegador.</p>}
-        <p className="mt-2 text-xs text-muted-foreground">Envío: 1 por cada km desde nuestra tienda (Av. 10 #36, El Alto).</p>
+        <div className="mt-4 overflow-hidden rounded-xl border border-border">
+          <ClientOnly fallback={<div className="grid h-72 place-items-center text-sm text-muted-foreground">Cargando mapa…</div>}>
+            <Suspense fallback={<div className="grid h-72 place-items-center text-sm text-muted-foreground">Cargando mapa…</div>}>
+              <DeliveryMap position={pos} onChange={setLocation} />
+            </Suspense>
+          </ClientOnly>
+        </div>
+        <p className="mt-2 text-xs text-muted-foreground">Toca el mapa o arrastra el marcador rojo para indicar dónde entregamos. Envío: 1 por cada km desde nuestra tienda (Av. 10 #36, El Alto).</p>
         <div className="mt-4 flex justify-between border-t border-border pt-4 text-xl font-extrabold"><span>Total</span><span className="text-primary">{formatPrice(total + fee)}</span></div>
         <button className="mt-6 w-full rounded-full bg-primary py-4 font-bold text-primary-foreground shadow-lift transition hover:-translate-y-0.5" onClick={() => alert("¡Pedido recibido! Pronto habilitaremos el pago en línea.")}>
           Confirmar pedido
