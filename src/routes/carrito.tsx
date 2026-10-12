@@ -1,7 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, ClientOnly, Link } from "@tanstack/react-router";
+import { lazy, Suspense, useState } from "react";
 import { MapPin, Minus, Plus, Trash2 } from "lucide-react";
 import { deliveryFee, distanceKm, STORE_LOCATION } from "@/lib/delivery";
+
+const DeliveryMap = lazy(() => import("@/components/DeliveryMap"));
 import { useCart } from "@/lib/cart";
 import { formatPrice, productImage } from "@/lib/catalog";
 import type { Product } from "@/types";
