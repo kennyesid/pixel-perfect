@@ -25,15 +25,22 @@ export const Route = createFileRoute("/carrito")({
 function CartPage() {
   const { items, total, count, setQty, remove, clear } = useCart();
   const [km, setKm] = useState<number | null>(null);
+  const [pos, setPos] = useState<{ lat: number; lng: number } | null>(null);
   const [locStatus, setLocStatus] = useState<"idle" | "loading" | "error">("idle");
   const fee = km === null ? 0 : deliveryFee(km);
+
+  const setLocation = (p: { lat: number; lng: number }, d: number) => {
+    setPos(p);
+    setKm(d);
+  };
 
   const locate = () => {
     if (!navigator.geolocation) return setLocStatus("error");
     setLocStatus("loading");
     navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        setKm(distanceKm(STORE_LOCATION, { lat: pos.coords.latitude, lng: pos.coords.longitude }));
+      (p) => {
+        const coords = { lat: p.coords.latitude, lng: p.coords.longitude };
+        setLocation(coords, distanceKm(STORE_LOCATION, coords));
         setLocStatus("idle");
       },
       () => setLocStatus("error"),
