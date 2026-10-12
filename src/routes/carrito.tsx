@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Minus, Plus, Trash2 } from "lucide-react";
+import { useState } from "react";
+import { MapPin, Minus, Plus, Trash2 } from "lucide-react";
+import { deliveryFee, distanceKm, STORE_LOCATION } from "@/lib/delivery";
 import { useCart } from "@/lib/cart";
 import { formatPrice, productImage } from "@/lib/catalog";
 import type { Product } from "@/types";
@@ -20,6 +22,22 @@ export const Route = createFileRoute("/carrito")({
 
 function CartPage() {
   const { items, total, count, setQty, remove, clear } = useCart();
+  const [km, setKm] = useState<number | null>(null);
+  const [locStatus, setLocStatus] = useState<"idle" | "loading" | "error">("idle");
+  const fee = km === null ? 0 : deliveryFee(km);
+
+  const locate = () => {
+    if (!navigator.geolocation) return setLocStatus("error");
+    setLocStatus("loading");
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setKm(distanceKm(STORE_LOCATION, { lat: pos.coords.latitude, lng: pos.coords.longitude }));
+        setLocStatus("idle");
+      },
+      () => setLocStatus("error"),
+      { enableHighAccuracy: true, timeout: 15000 },
+    );
+  };
 
   if (items.length === 0) {
     return (
@@ -58,7 +76,18 @@ function CartPage() {
       <aside className="h-fit rounded-2xl bg-card p-6 shadow-soft lg:sticky lg:top-24">
         <h2 className="text-2xl font-extrabold">Resumen</h2>
         <div className="mt-4 flex justify-between text-muted-foreground"><span>Productos</span><span>{count}</span></div>
-        <div className="mt-4 flex justify-between border-t border-border pt-4 text-xl font-extrabold"><span>Total</span><span className="text-primary">{formatPrice(total)}</span></div>
+        <div className="mt-2 flex justify-between text-muted-foreground"><span>Subtotal</span><span>{formatPrice(total)}</span></div>
+        <div className="mt-2 flex justify-between text-muted-foreground">
+          <span>Envío{km !== null && ` (${km.toFixed(1)} km)`}</span>
+          <span>{km === null ? "—" : formatPrice(fee)}</span>
+        </div>
+        <button onClick={locate} disabled={locStatus === "loading"} className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-border py-3 text-sm font-bold hover:border-primary disabled:opacity-60">
+          <MapPin className="h-4 w-4" />
+          {locStatus === "loading" ? "Buscando tu ubicación…" : km === null ? "Usar mi ubicación" : "Actualizar ubicación"}
+        </button>
+        {locStatus === "error" && <p className="mt-2 text-xs text-destructive">No pudimos obtener tu ubicación. Revisa los permisos del navegador.</p>}
+        <p className="mt-2 text-xs text-muted-foreground">Envío: 1 por cada km desde nuestra tienda (Av. 10 #36, El Alto).</p>
+        <div className="mt-4 flex justify-between border-t border-border pt-4 text-xl font-extrabold"><span>Total</span><span className="text-primary">{formatPrice(total + fee)}</span></div>
         <button className="mt-6 w-full rounded-full bg-primary py-4 font-bold text-primary-foreground shadow-lift transition hover:-translate-y-0.5" onClick={() => alert("¡Pedido recibido! Pronto habilitaremos el pago en línea.")}>
           Confirmar pedido
         </button>
