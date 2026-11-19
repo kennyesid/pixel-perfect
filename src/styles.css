@@ -24,6 +24,7 @@
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-cappiyellow: var(--cappiyellow);
+  --color-cappiorange: var(--cappiorange);
   --color-cappibrownligth: var(--cappibrownligth);
   --color-cappiblue: var(--cappiblue);
   --color-cappibluedark: var(--cappibluedark);
@@ -54,7 +55,8 @@
   --primary-foreground: oklch(0.99 0.01 80);
   --secondary: oklch(0.82 0.14 78);
   --secondary-foreground: oklch(0.25 0.05 50);
-  --cappiyellow: oklch(0.78 0.16 75); 
+  --cappiyellow: oklch(0.920 0.147 101.3); 
+  --cappiorange: oklch(0.78 0.16 75); 
   --cappibrownligth: oklch(0.928 0.045 84.5); 
   --cappiblue: oklch(0.449 0.082 230.5); 
   /* --cappibluedark: oklch(0.341 0.014 239.5);  */
@@ -127,4 +129,13 @@
 }
 @utility animate-rise {
   animation: rise 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
 }

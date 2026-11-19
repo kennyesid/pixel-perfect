@@ -102,9 +102,17 @@ export function Navbar() {
         <div className="flex items-center gap-3">
           <ThemeToggle />
           <CartLink />
-          <Link to="/menu" className="rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-soft transition hover:-translate-y-0.5 hover:shadow-lift">
+          {/* <Link to="/menu" className="rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-soft transition hover:-translate-y-0.5 hover:shadow-lift">
             Pedir ahora
-          </Link>
+          </Link> */}
+          <GenericButton
+            as={Link}
+            to="/#nosotros"
+            variant="heroYellowTransparent"
+            activeOptions={{ exact: true }}
+          >
+            Login
+          </GenericButton>
         </div>
       </nav>
     </header>

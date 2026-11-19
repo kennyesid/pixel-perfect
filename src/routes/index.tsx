@@ -92,88 +92,129 @@ function Home() {
     <div className="min-h-screen">
       <>
         <section className="relative isolate overflow-hidden bg-hero">
+          {/* Imagen de fondo principal */}
           <img
             ref={heroImgRef}
-            // src={hero}
             src={"./images/page/one/pixel-cappi-waffles-main.png"}
-            alt="Waffle artesanal con fresas, mantequilla y miel de maple"
+            alt="Fondo Waffle"
             width={1600}
             height={1008}
             className="absolute inset-0 -z-10 h-full w-full object-cover will-change-transform"
             style={{ transform: "scale(1.06)" }}
           />
-          {/* <div className="hero-overlay absolute inset-0 -z-10" /> */}
-          {/* <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/60 via-black/30 to-transparent" /> */}
-          <div className="mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-center px-5 py-20 text-hero-foreground">
-            <p className="animate-rise mb-4 text-sm font-bold uppercase tracking-[0.3em] text-secondary">Crujiente · Dulce · Irresistible</p>
-            <h1 className="animate-rise max-w-2xl text-5xl font-extrabold leading-[0.95] md:text-7xl [animation-delay:100ms]">
-              Waffles <span className="text-primary">& Mas</span>.
-            </h1>
-            <p className="animate-rise mt-6 max-w-lg text-lg opacity-85 [animation-delay:200ms]">
-              Waffles artesanales recién salidos de la wafflera.
-            </p>
-            <div className="animate-rise mt-10 flex flex-wrap items-start gap-4 [animation-delay:300ms]">
-              <GenericButton
-                as={
-                  Link}
-                to="/menu"
-                variant="heroPrimary"
-              >
-                Ver menú
-              </GenericButton>
-              <GenericButton
-                as="a"
-                href="#destacados"
-                variant="heroSecondary"
-              >
-                Favoritos
-              </GenericButton>
+
+          {/* Un degradado sutil para asegurar que el texto se lea bien sin oscurecer toda la imagen */}
+          <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+
+          {/* Contenedor principal en 2 columnas */}
+          <div className="mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-center px-5 py-20 text-hero-foreground lg:flex-row lg:items-center lg:gap-12">
+
+            {/* COLUMNA IZQUIERDA: Textos y Botones */}
+            <div className="flex flex-1 flex-col items-center text-center lg:items-start lg:text-left pt-24 lg:pt-0 z-10">
+
+              {/* 1. Etiqueta superior (Badge) tipo "Píldora" */}
+              <div className="animate-rise mb-6 inline-flex items-center gap-2 rounded-full border border-secondary/30 bg-secondary/10 px-4 py-1.5 backdrop-blur-md">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-75"></span>
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-secondary"></span>
+                </span>
+                <p className="text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-secondary">
+                  Crujiente · Dulce · Irresistible
+                </p>
+              </div>
+
+              {/* 2. Título Principal (Más grande, tracking ajustado) */}
+              <h1 className="animate-rise max-w-3xl text-6xl font-extrabold leading-[1.05] md:text-8xl lg:text-9xl tracking-tighter [animation-delay:100ms] drop-shadow-lg">
+                Waffles <br className="hidden md:block" />
+                <span className="text-primary italic">& Más</span>.
+              </h1>
+
+              {/* 3. Subtítulo (Más legible y amplio) */}
+              <p className="animate-rise mt-6 max-w-xl text-lg font-medium opacity-90 md:text-2xl text-hero-foreground/90 [animation-delay:200ms] leading-relaxed">
+                Recién salidos de la wafflera. Disfruta del auténtico sabor artesanal con los mejores ingredientes de la ciudad.
+              </p>
+
+              {/* 4. Botones de Acción (Más grandes y con iconos) */}
+              <div className="animate-rise mt-10 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto [animation-delay:300ms]">
+                <GenericButton
+                  as={Link}
+                  to="/menu"
+                  variant="heroPrimary"
+                // className="w-full sm:w-auto text-lg px-8 py-4 shadow-xl hover:-translate-y-1 transition-transform"
+                >
+                  Ver menú
+                </GenericButton>
+
+                <GenericButton
+                  as="a"
+                  href="#destacados"
+                  variant="heroSecondary"
+                // className="w-full sm:w-auto text-lg px-8 py-4 border-white/40 hover:bg-white/10 transition-colors flex items-center justify-center gap-2"
+                >
+                  Favoritos <span className="text-base">↓</span>
+                </GenericButton>
+              </div>
+
             </div>
+
+            {/* COLUMNA DERECHA: Imagen Ilustrativa (Nueva) */}
+            {/* <div className="animate-rise hidden flex-1 items-center justify-center lg:flex [animation-delay:400ms]">
+              <div className="relative">
+                <div className="absolute inset-0 -z-10 scale-110 rounded-full bg-primary/30 blur-3xl animate-pulse" />
+                <img
+                  src="./images/login/cappi-waffle-logo.png" // 👈 Reemplaza por la ruta de tu imagen ilustrativa
+                  alt="Waffle destacado"
+                  className="w-full max-w-md drop-shadow-2xl animate-[float_4s_ease-in-out_infinite]"
+                />
+              </div>
+            </div> */}
           </div>
         </section>
 
-        <section className="mx-auto max-w-7xl px-5 py-20">
-          <h2 className="text-center text-4xl font-extrabold md:text-5xl">Explora el menú</h2>
+        {/* 1. Contenedor externo: Ocupa el 100% del ancho y lleva el color de fondo */}
+        <section className="w-full bg-cappiyellow pt-8">
 
-          {/* Grid de 4 columnas en desktop, 1 en móvil */}
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-4 gap-6">
-            {categories.map((c, index) => {
-              // Lógica matemática para alternar los tamaños:
-              // Fila 1: index 0 (75% -> 3 columnas), index 1 (25% -> 1 columna)
-              // Fila 2: index 2 (25% -> 1 columna), index 3 (75% -> 3 columnas)
-              const isLarge = index % 4 === 0 || index % 4 === 3;
+          {/* 2. Contenedor interno: Limita el ancho para que el contenido no se estire */}
+          <div className="mx-auto max-w-7xl px-5">
+            <h2 className="text-center text-4xl text-cappibluedark font-extrabold md:text-5xl">Explora el menú</h2>
 
-              return (
-                <Link
-                  key={c.id}
-                  to="/menu"
-                  search={{ categoria: c.id }}
-                  className={`group relative flex flex-col justify-end overflow-hidden rounded-3xl bg-muted shadow-sm transition-all duration-500 hover:shadow-lift h-[300px] sm:h-[400px] ${isLarge ? "md:col-span-3" : "md:col-span-1"
-                    }`}
-                >
-                  {/* Imagen de fondo ocupando todo el espacio */}
-                  <img
-                    src={c.imageUrl || "/images/placeholder-waffle.jpg"}
-                    alt={c.name || "Categoría de waffles"}
-                    loading="lazy"
-                    className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
-                  />
+            {/* Grid de 4 columnas en desktop, 1 en móvil */}
+            <div className="pt-8 grid grid-cols-1 md:grid-cols-4 gap-6">
+              {categories.map((c, index) => {
+                const isLarge = index % 4 === 0 || index % 4 === 3;
 
-                  {/* Degradado oscuro para que el texto sea legible sobre la imagen */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
+                return (
+                  <Link
+                    key={c.id}
+                    to="/menu"
+                    search={{ categoria: c.id }}
+                    className={`group relative flex flex-col justify-end overflow-hidden rounded-3xl bg-muted shadow-sm transition-all duration-500 hover:shadow-lift h-[300px] sm:h-[400px] ${isLarge ? "md:col-span-3" : "md:col-span-1"
+                      }`}
+                  >
+                    {/* Imagen de fondo ocupando todo el espacio */}
+                    <img
+                      src={c.imageUrl || "/images/placeholder-waffle.jpg"}
+                      alt={c.name || "Categoría de waffles"}
+                      loading="lazy"
+                      className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                    />
 
-                  {/* Contenido (Texto) en el lado derecho / abajo */}
-                  <div className="relative z-10 p-6 sm:p-8 flex flex-col items-start sm:items-end text-left sm:text-right">
-                    <h3 className="text-3xl sm:text-4xl font-extrabold text-white mb-2 tracking-tight group-hover:text-primary transition-colors">
-                      {c.name}
-                    </h3>
-                    <p className="text-sm sm:text-base text-gray-200 line-clamp-3 max-w-md">
-                      {c.description || "Descubre nuestra deliciosa selección de waffles preparados al momento con los mejores ingredientes y el auténtico sabor artesanal."}
-                    </p>
-                  </div>
-                </Link>
-              );
-            })}
+                    {/* Degradado oscuro para que el texto sea legible sobre la imagen */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-300" />
+
+                    {/* Contenido (Texto) en el lado derecho / abajo */}
+                    <div className="relative z-10 p-6 sm:p-8 flex flex-col items-start sm:items-end text-left sm:text-right">
+                      <h3 className="text-3xl sm:text-4xl font-extrabold text-white mb-2 tracking-tight group-hover:text-cappiyellow transition-colors">
+                        {c.name}
+                      </h3>
+                      <p className="text-sm sm:text-base text-gray-200 line-clamp-3 max-w-md">
+                        {c.description || "Descubre nuestra deliciosa selección de waffles preparados al momento con los mejores ingredientes y el auténtico sabor artesanal."}
+                      </p>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         </section>
 
