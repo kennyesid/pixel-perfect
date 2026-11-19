@@ -14,6 +14,7 @@ import { Navbar, Footer } from "../components/Navbar";
 import { CartProvider } from "../lib/cart";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { Chatbot } from "@/components/chatbot/Chatbot";
 
 function NotFoundComponent() {
   return (
@@ -127,6 +128,7 @@ function RootComponent() {
           <Outlet />
         </main>
         <Footer />
+        <Chatbot />
       </CartProvider>
     </QueryClientProvider>
   );

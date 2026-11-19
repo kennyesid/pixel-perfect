@@ -53,3 +53,6 @@ export interface Product extends BaseEntity {
   productIngredientDetail?: ProductIngredientDetail[];
   productDetailProduct?: ProductDetailProduct[];
 }
+
+export * from "./auth";
+

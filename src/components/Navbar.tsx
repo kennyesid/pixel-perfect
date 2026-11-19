@@ -107,7 +107,7 @@ export function Navbar() {
           </Link> */}
           <GenericButton
             as={Link}
-            to="/#nosotros"
+            to="/login"
             variant="heroYellowTransparent"
             activeOptions={{ exact: true }}
           >
