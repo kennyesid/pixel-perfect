@@ -10,6 +10,7 @@ export interface Category extends BaseEntity {
   state: boolean;
   groupId: number;
   orderBy: number;
+  imageUrl: string;
   createdAt: string;
   updatedAt: string;
 }

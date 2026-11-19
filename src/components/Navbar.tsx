@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Moon, ShoppingBag, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart";
+import GenericButton from "./ui/button/GenericButton";
 
 function CartLink() {
   const { count } = useCart();
@@ -36,17 +37,67 @@ function ThemeToggle() {
 }
 
 export function Navbar() {
-  const link = "text-sm font-semibold uppercase tracking-wide text-foreground/80 transition hover:text-primary";
+  const [isScrolled, setIsScrolled] = useState(false);
+  const link = "text-sm font-semibold uppercase tracking-wide text-white transition hover:text-primary";
+  useEffect(() => {
+    const handleScroll = () => {
+      // Si baja más de 20px, activamos el fondo
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Verificar al cargar
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // 1. Las clases de los enlaces cambian según el scroll
+  // (Si el fondo es amarillo, el texto debe ser oscuro o primary para que se lea)
+  const linkBase = "text-sm font-semibold uppercase tracking-wide transition-colors duration-300";
+  const linkColor = isScrolled ? "text-foreground/90 hover:text-primary" : "text-white hover:text-secondary";
   return (
-    <header className="sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur">
+    // <header className="sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur">
+    <header className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 border-b ${isScrolled
+      ? "bg-cappibluedark border-transparent shadow-md backdrop-blur-md" // Fondo Amarillo al bajar
+      : "bg-transparent border-transparent backdrop-blur-sm" // Transparente al inicio
+      }`}>
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5">
-        <Link to="/" className="font-display text-2xl font-extrabold text-primary">
+        {/* <Link to="/" className="font-display text-2xl font-extrabold text-primary">
           Capy<span className="text-foreground">Waffles</span>
-        </Link>
+        </Link> */}
+        {/* <Link to="/" className="flex items-center gap-2 group">
+          <img
+            src="/images/login/cappi-waffle-logo.png"
+            alt="CapyWaffles Logo"
+            className="h-20 w-20 object-contain transition-transform duration-300 group-hover:scale-110"
+          />
+        </Link> */}
         <div className="hidden items-center gap-8 md:flex">
-          <Link to="/" className={link} activeProps={{ className: "text-primary" }} activeOptions={{ exact: true }}>Inicio</Link>
-          <Link to="/menu" className={link} activeProps={{ className: "text-primary" }}>Menú</Link>
-          <a href="/#nosotros" className={link}>Nosotros</a>
+          {/* <Link to="/" className={link} activeProps={{ className: "text-white" }} activeOptions={{ exact: true }}>Inicio</Link> */}
+          <GenericButton
+            as={Link}
+            to="/"
+            variant="heroYellowNavbarTransparent"
+            activeOptions={{ exact: true }}
+          >
+            Inicio
+          </GenericButton>
+          {/* <Link to="/menu" className={link} activeProps={{ className: "text-white" }}>Menú</Link> */}
+          <GenericButton
+            as={Link}
+            to="/menu"
+            variant="heroYellowNavbarTransparent"
+            activeOptions={{ exact: true }}
+          >
+            Menú
+          </GenericButton>
+          {/* <a href="/#nosotros" className={link}>Nosotros</a> */}
+          <GenericButton
+            as={Link}
+            to="/#nosotros"
+            variant="heroYellowNavbarTransparent"
+            activeOptions={{ exact: true }}
+          >
+            Nosotros
+          </GenericButton>
         </div>
         <div className="flex items-center gap-3">
           <ThemeToggle />

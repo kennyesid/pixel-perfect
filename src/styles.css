@@ -8,7 +8,7 @@
   --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
+  /* --radius-md: calc(var(--radius) - 2px); */
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
   --radius-2xl: calc(var(--radius) + 8px);
@@ -23,6 +23,10 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
+  --color-cappiyellow: var(--cappiyellow);
+  --color-cappibrownligth: var(--cappibrownligth);
+  --color-cappiblue: var(--cappiblue);
+  --color-cappibluedark: var(--cappibluedark);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
@@ -39,7 +43,7 @@
 }
 
 :root {
-  --radius: 1rem;
+  /* --radius: 1rem; */
   --background: oklch(0.975 0.015 80);
   --foreground: oklch(0.22 0.03 40);
   --card: oklch(1 0 0);
@@ -50,7 +54,12 @@
   --primary-foreground: oklch(0.99 0.01 80);
   --secondary: oklch(0.82 0.14 78);
   --secondary-foreground: oklch(0.25 0.05 50);
-  --muted: oklch(0.94 0.02 80);
+  --cappiyellow: oklch(0.78 0.16 75); 
+  --cappibrownligth: oklch(0.928 0.045 84.5); 
+  --cappiblue: oklch(0.449 0.082 230.5); 
+  /* --cappibluedark: oklch(0.341 0.014 239.5);  */
+  --cappibluedark: oklch(0.233 0.032 212.1); 
+  --muted: oklch(9.693% 0.00001 271.152);
   --muted-foreground: oklch(0.48 0.03 50);
   --accent: oklch(0.92 0.06 80);
   --accent-foreground: oklch(0.25 0.05 50);
