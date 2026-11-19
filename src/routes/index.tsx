@@ -27,8 +27,9 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   const { data: categories } = useSuspenseQuery(categoriesQuery);
-  console.log('categories: ', JSON.stringify(categories));
+  // console.log('categories: ', JSON.stringify(categories));
   const { data: products } = useSuspenseQuery(productsQuery);
+  console.log('products: ', JSON.stringify(products));
   const featured = products.filter((p) => p.isFeatured).slice(0, 8);
   const heroImgRef = useRef<HTMLImageElement>(null);
   const [isPromoOpen, setIsPromoOpen] = useState(true);
@@ -124,7 +125,8 @@ function Home() {
               </div>
 
               {/* 2. Título Principal (Más grande, tracking ajustado) */}
-              <h1 className="animate-rise max-w-3xl text-6xl font-extrabold leading-[1.05] md:text-8xl lg:text-9xl tracking-tighter [animation-delay:100ms] drop-shadow-lg">
+              {/* <h1 className="animate-rise max-w-3xl text-6xl font-extrabold leading-[1.05] md:text-8xl lg:text-9xl tracking-tighter [animation-delay:100ms] drop-shadow-lg"> */}
+              <h1 className="text-6xl">
                 Waffles <br className="hidden md:block" />
                 <span className="text-primary italic">& Más</span>.
               </h1>
@@ -172,13 +174,11 @@ function Home() {
         </section>
 
         {/* 1. Contenedor externo: Ocupa el 100% del ancho y lleva el color de fondo */}
-        <section className="w-full bg-cappiyellow pt-8">
+        <section className="w-full bg-cappiyellow pt-8 relative pb-10">
 
-          {/* 2. Contenedor interno: Limita el ancho para que el contenido no se estire */}
           <div className="mx-auto max-w-7xl px-5">
             <h2 className="text-center text-4xl text-cappibluedark font-extrabold md:text-5xl">Explora el menú</h2>
 
-            {/* Grid de 4 columnas en desktop, 1 en móvil */}
             <div className="pt-8 grid grid-cols-1 md:grid-cols-4 gap-6">
               {categories.map((c, index) => {
                 const isLarge = index % 4 === 0 || index % 4 === 3;
@@ -216,27 +216,18 @@ function Home() {
               })}
             </div>
           </div>
+          {/* 
+
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-cappiblue/80 pointer-events-none" />
+
+          <div className="mx-auto max-w-7xl px-5"></div> */}
         </section>
 
-        {/* <section className="mx-auto max-w-7xl px-5 py-20">
-          <h2 className="text-center text-4xl font-extrabold md:text-5xl">Explora el menú</h2>
-          <div className="mt-12 grid grid-cols-2 gap-6 md:grid-cols-4">
-            {categories.map((c) => (
-              <Link key={c.id} to="/menu" search={{ categoria: c.id }} className="group text-center">
-                <div className="mx-auto aspect-square overflow-hidden rounded-full bg-card shadow-soft transition group-hover:-translate-y-1 group-hover:shadow-lift">
-                  <img src={categoryImages[c.id]} alt={c.name} loading="lazy" width={816} height={816} className="h-full w-full object-cover transition duration-500 group-hover:scale-110" />
-                </div>
-                <h3 className="mt-5 text-xl font-extrabold group-hover:text-primary">{c.name}</h3>
-                <p className="mt-1 text-sm text-muted-foreground">{c.description}</p>
-              </Link>
-            ))}
-          </div>
-        </section> */}
-
-        <section id="destacados" className="bg-muted/60 py-20">
+        <section id="destacados" className="bg-cappiblue py-8 relative">
+          {/* <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-white/20 to-transparent pointer-events-none" /> */}
           <div className="mx-auto max-w-7xl px-5">
             <div className="flex items-end justify-between">
-              <h2 className="text-4xl font-extrabold md:text-5xl">Los favoritos</h2>
+              <h2 className="text-4xl text-cappiyellow font-extrabold md:text-5xl">Los favoritos</h2>
               <Link to="/menu" className="font-bold text-primary hover:underline">Ver todo →</Link>
             </div>
             <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -245,14 +236,25 @@ function Home() {
           </div>
         </section>
 
-        <section id="nosotros" className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-20 md:grid-cols-2">
-          <img src={categoryImages[7]} alt="Waffle artesanal" loading="lazy" width={816} height={816} className="rounded-3xl shadow-lift" />
-          <div>
-            <p className="text-sm font-bold uppercase tracking-[0.3em] text-primary">Nuestra historia</p>
-            <h2 className="mt-3 text-4xl font-extrabold md:text-5xl">Hecho a mano, servido con cariño.</h2>
-            <p className="mt-5 text-lg text-muted-foreground">
-              En CapyWaffles preparamos cada waffle al momento y freímos nuestro pollo hasta lograr el crujido perfecto. Tranquilos como un capibara, intensos en sabor.
-            </p>
+        <section id="nosotros" className="w-full bg-cappigraylight py-20">
+          <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 md:grid-cols-2">
+
+            <img
+              src={categoryImages[7]}
+              alt="Waffle artesanal"
+              loading="lazy"
+              width={816}
+              height={816}
+              className="rounded-3xl shadow-lift"
+            />
+
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[0.3em] text-primary">Nuestra historia</p>
+              <h2 className="mt-3 text-4xl font-extrabold md:text-5xl">Hecho a mano, servido con cariño.</h2>
+              <p className="mt-5 text-lg text-muted-foreground">
+                En CapyWaffles preparamos cada waffle al momento y freímos nuestro pollo hasta lograr el crujido perfecto. Tranquilos como un capibara, intensos en sabor.
+              </p>
+            </div>
           </div>
         </section>
       </>

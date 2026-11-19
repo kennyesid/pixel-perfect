@@ -57,7 +57,7 @@ export function Navbar() {
     // <header className="sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur">
     <header className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 border-b ${isScrolled
       ? "bg-cappibluedark border-transparent shadow-md backdrop-blur-md" // Fondo Amarillo al bajar
-      : "bg-transparent border-transparent backdrop-blur-sm" // Transparente al inicio
+      : "bg-cappibluedark border-transparent backdrop-blur-sm" // Transparente al inicio
       }`}>
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5">
         {/* <Link to="/" className="font-display text-2xl font-extrabold text-primary">
@@ -78,7 +78,7 @@ export function Navbar() {
             variant="heroYellowNavbarTransparent"
             activeOptions={{ exact: true }}
           >
-            Inicio
+            INICIO
           </GenericButton>
           {/* <Link to="/menu" className={link} activeProps={{ className: "text-white" }}>Menú</Link> */}
           <GenericButton
@@ -87,7 +87,7 @@ export function Navbar() {
             variant="heroYellowNavbarTransparent"
             activeOptions={{ exact: true }}
           >
-            Menú
+            MENÚ
           </GenericButton>
           {/* <a href="/#nosotros" className={link}>Nosotros</a> */}
           <GenericButton
@@ -96,7 +96,7 @@ export function Navbar() {
             variant="heroYellowNavbarTransparent"
             activeOptions={{ exact: true }}
           >
-            Nosotros
+            NOSOTROS
           </GenericButton>
         </div>
         <div className="flex items-center gap-3">
@@ -121,7 +121,7 @@ export function Navbar() {
 
 export function Footer() {
   return (
-    <footer className="mt-24 bg-hero py-12 text-hero-foreground">
+    <footer className="bg-cappiblue py-12 text-hero-foreground">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-5 md:flex-row">
         <p className="font-display text-xl font-extrabold">CapyWaffles</p>
         <p className="text-sm opacity-70">Waffles artesanales · Pollo crujiente · Helados · Refrescos</p>

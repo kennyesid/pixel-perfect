@@ -12,4 +12,4 @@ export function productImage(p: Product): string {
   return categoryImages[p.categoryId] ?? waffles;
 }
 
-export const formatPrice = (n: number) => `$${Number(n).toFixed(2)}`;
+export const formatPrice = (n: number) => `Bs ${Number(n).toFixed(2)}`;
