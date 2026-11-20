@@ -54,36 +54,35 @@ export function WelcomePromoModal({ isOpen, onClose, onClaimDeal, onViewMenu }: 
                 <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-8 text-center space-y-6">
 
                     {/* Logo (Reemplaza con tu logo) */}
-                    <div className="flex items-center gap-2 mb-2">
+                    {/* <div className="flex items-center gap-2 mb-2">
                         <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center">
-                            {/* Icono de waffle simulado */}
                             <span className="text-2xl">🧇</span>
                         </div>
                         <span className="font-bold text-lg tracking-wider text-slate-800">
                             TU WAFFLE
                         </span>
-                    </div>
+                    </div> */}
 
                     <div>
                         <h2 className="text-3xl font-black text-slate-900 uppercase tracking-tight leading-none mb-2">
                             Envío Gratis
                         </h2>
                         <p className="text-slate-600 font-medium">
-                            En tu primer pedido superior a $20
+                            En tu primer pedido superior a 20 Bs
                         </p>
                     </div>
 
                     <div className="w-full pt-4 space-y-3">
                         <button
                             onClick={handleClaimDeal}
-                            className="w-full bg-[#3BC1D8] hover:bg-[#2ba6bb] text-[#052A3D] font-bold py-3 px-4 rounded-md transition-colors duration-200 uppercase tracking-wide text-sm shadow-sm"
+                            className="w-full bg-[#3BC1D8] hover:bg-[#2ba6bb] text-[#052A3D] font-bold py-3 px-4 rounded-md transition-colors duration-200 uppercase tracking-wide text-sm shadow-sm hover:cursor-pointer"
                         >
                             Reclamar Oferta
                         </button>
 
                         <button
                             onClick={onClose}
-                            className="w-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-semibold py-3 px-4 rounded-md transition-colors duration-200 text-sm"
+                            className="w-full bg-slate-100 hover:bg-slate-200 text-slate-500 font-semibold py-3 px-4 rounded-md transition-colors duration-200 text-sm hover:cursor-pointer"
                         >
                             No, gracias
                         </button>
