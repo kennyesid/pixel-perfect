@@ -45,14 +45,14 @@ export function Chatbot() {
 
             {/* Ventana del Chat */}
             {isOpen && (
-                <div className="flex h-[500px] w-[350px] flex-col overflow-hidden rounded-2xl bg-card shadow-2xl border border-border">
+                <div className="flex h-[500px] w-[350px] bg-white flex-col ">
                     {/* Header */}
-                    <div className="flex items-center justify-between bg-primary p-4 text-white">
+                    <div className="flex items-center justify-between bg-cappiblue p-4 text-cappigraylight">
                         <div className="flex items-center gap-2">
-                            <span className="text-2xl">🧇</span>
+
                             <div>
-                                <h3 className="font-bold text-sm">CapyBot</h3>
-                                <p className="text-xs text-white/80">En línea</p>
+                                <h3 className="font-bold text-sm ">CapyBot</h3>
+                                <p className="text-xs ">En línea</p>
                             </div>
                         </div>
                         <button onClick={() => setIsOpen(false)} className="hover:bg-white/20 p-1 rounded">
@@ -61,12 +61,12 @@ export function Chatbot() {
                     </div>
 
                     {/* Historial de mensajes */}
-                    <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-muted/20">
+                    <div className="flex-1 overflow-y-auto p-4 space-y-4">
                         {history.map((msg, i) => (
                             <div key={i} className={`flex ${msg?.startsWith("Tú:") ? "justify-end" : "justify-start"}`}>
-                                <div className={`max-w-[80%] rounded-2xl p-3 text-sm ${msg?.startsWith("Tú:")
-                                    ? "bg-primary text-white rounded-tr-sm"
-                                    : "bg-white border border-border text-foreground rounded-tl-sm"
+                                <div className={`max-w-[80%] border-1 rounded-2xl p-3 text-sm ${msg?.startsWith("Tú:")
+                                    ? "rounded-tr-sm border-cappiblue  text-cappiblue "
+                                    : "bg-cappiblue border border-border text-cappigraylight rounded-tl-sm"
                                     }`}>
                                     {msg?.replace("Tú: ", "")}
                                 </div>
@@ -80,7 +80,7 @@ export function Chatbot() {
                             <button
                                 key={i}
                                 onClick={() => handleOptionClick(opt.nextId, opt.label, opt.isExternalLink)}
-                                className="w-full text-left rounded-lg border border-primary/30 p-2 text-sm text-primary font-medium transition hover:bg-primary/10"
+                                className="w-full text-left rounded-lg border border-cappiblue p-2 text-sm text-cappiblue bg-cappiyellow/20 font-medium transition hover:bg-cappiyellow/60"
                             >
                                 {opt.label}
                             </button>
