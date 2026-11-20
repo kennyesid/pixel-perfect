@@ -114,7 +114,7 @@ function Home() {
             <div className="flex flex-1 flex-col items-center text-center lg:items-start lg:text-left pt-24 lg:pt-0 z-10">
 
               {/* 1. Etiqueta superior (Badge) tipo "Píldora" */}
-              <div className="animate-rise mb-6 inline-flex items-center gap-2 rounded-full border border-secondary/30 bg-secondary/10 px-4 py-1.5 backdrop-blur-md">
+              {/* <div className="animate-rise mb-6 inline-flex items-center gap-2 rounded-full border border-secondary/30 bg-secondary/10 px-4 py-1.5 backdrop-blur-md">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-secondary opacity-75"></span>
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-secondary"></span>
@@ -122,13 +122,13 @@ function Home() {
                 <p className="text-xs md:text-sm font-bold uppercase tracking-[0.2em] text-secondary">
                   Crujiente · Dulce · Irresistible
                 </p>
-              </div>
+              </div> */}
 
               {/* 2. Título Principal (Más grande, tracking ajustado) */}
               {/* <h1 className="animate-rise max-w-3xl text-6xl font-extrabold leading-[1.05] md:text-8xl lg:text-9xl tracking-tighter [animation-delay:100ms] drop-shadow-lg"> */}
-              <h1 className="text-6xl">
-                Waffles <br className="hidden md:block" />
-                <span className="text-primary italic">& Más</span>.
+              <h1 className="text-7xl font-display">
+                Waffles {" "}
+                <span className="text-cappiyellow italic">& Más</span>{" "}.
               </h1>
 
               {/* 3. Subtítulo (Más legible y amplio) */}
@@ -227,7 +227,7 @@ function Home() {
           {/* <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-white/20 to-transparent pointer-events-none" /> */}
           <div className="mx-auto max-w-7xl px-5">
             <div className="flex items-end justify-between">
-              <h2 className="text-4xl text-cappiyellow font-extrabold md:text-5xl">Los favoritos</h2>
+              <h2 className="text-4xl text-cappiyellow font-extrabold md:text-5xl">Favoritos</h2>
               <Link to="/menu" className="font-bold text-primary hover:underline">Ver todo →</Link>
             </div>
             <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -240,7 +240,7 @@ function Home() {
           <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 md:grid-cols-2">
 
             <img
-              src={categoryImages[7]}
+              src={"./images/page/nosotros/logo-nosotros.jpg"}
               alt="Waffle artesanal"
               loading="lazy"
               width={816}
@@ -249,8 +249,8 @@ function Home() {
             />
 
             <div>
-              <p className="text-sm font-bold uppercase tracking-[0.3em] text-primary">Nuestra historia</p>
-              <h2 className="mt-3 text-4xl font-extrabold md:text-5xl">Hecho a mano, servido con cariño.</h2>
+              <p className="text-xl font-bold uppercase tracking-[0.3em] text-cappiblue font-display">Nuestra historia</p>
+              <h2 className="mt-3 text-4xl font-extrabold text-cappiblue md:text-5xl">Hecho a mano, servido con cariño.</h2>
               <p className="mt-5 text-lg text-muted-foreground">
                 En CapyWaffles preparamos cada waffle al momento y freímos nuestro pollo hasta lograr el crujido perfecto. Tranquilos como un capibara, intensos en sabor.
               </p>

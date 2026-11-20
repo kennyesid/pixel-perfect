@@ -27,10 +27,6 @@ function AddButton({ product }: { product: Product }) {
           setDone(true);
           setTimeout(() => setDone(false), 1200);
         }}
-        className={`rounded-full border-2 border-primary px-4 py-1.5 text-sm font-bold transition ${done
-          ? "bg-primary text-primary-foreground"
-          : "text-primary hover:bg-primary hover:text-primary-foreground"
-          }`}
       >
         {done ? "¡Listo!" : "Agregar"}
       </GenericButton>

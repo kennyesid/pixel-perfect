@@ -63,13 +63,13 @@ export function Navbar() {
         {/* <Link to="/" className="font-display text-2xl font-extrabold text-primary">
           Capy<span className="text-foreground">Waffles</span>
         </Link> */}
-        {/* <Link to="/" className="flex items-center gap-2 group">
+        <Link to="/" className="flex items-center gap-2 group">
           <img
-            src="/images/login/cappi-waffle-logo.png"
+            src="/images/login/cappi-waffle-along.png"
             alt="CapyWaffles Logo"
-            className="h-20 w-20 object-contain transition-transform duration-300 group-hover:scale-110"
+            className="h-12 w-12 object-contain transition-transform duration-300 group-hover:scale-110"
           />
-        </Link> */}
+        </Link>
         <div className="hidden items-center gap-8 md:flex">
           {/* <Link to="/" className={link} activeProps={{ className: "text-white" }} activeOptions={{ exact: true }}>Inicio</Link> */}
           <GenericButton
