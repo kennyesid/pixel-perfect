@@ -55,7 +55,7 @@ export function ProductCard({ product }: { product: Product }) {
         <h3 className="text-xl font-extrabold leading-tight text-cappibluedark">{product.name}</h3>
         {product.description && <p className="line-clamp-2 text-sm text-muted-foreground">{product.description}</p>}
         <div className="mt-auto flex items-center justify-between pt-3">
-          <span className="font-display text-2xl font-extrabold text-cappibluedark">{formatPrice(product.price)}</span>
+          <span className="font-display text-lg text-cappibluedark">{formatPrice(product.price)}</span>
           <AddButton product={product} />
         </div>
       </div>

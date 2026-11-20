@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Moon, ShoppingBag, Sun } from "lucide-react";
+import { Moon, ShoppingBag, ShoppingCart, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart";
 import GenericButton from "./ui/button/GenericButton";
@@ -7,10 +7,10 @@ import GenericButton from "./ui/button/GenericButton";
 function CartLink() {
   const { count } = useCart();
   return (
-    <Link to="/carrito" aria-label="Ver carrito" className="relative grid h-10 w-10 place-items-center rounded-full border border-border bg-card text-foreground transition hover:scale-105 hover:border-primary">
-      <ShoppingBag className="h-5 w-5" />
+    <Link to="/carrito" aria-label="Ver carrito" className="relative grid h-10 w-10 place-items-center rounded-full border border-border bg-card text-foreground transition hover:scale-105 ">
+      <ShoppingCart className="h-5 w-5" />
       {count > 0 && (
-        <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-primary px-1 text-xs font-bold text-primary-foreground">{count}</span>
+        <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-cappiblue px-1 text-xs font-bold text-primary-foreground">{count}</span>
       )}
     </Link>
   );
@@ -100,7 +100,7 @@ export function Navbar() {
           </GenericButton>
         </div>
         <div className="flex items-center gap-3">
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
           <CartLink />
           {/* <Link to="/menu" className="rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-soft transition hover:-translate-y-0.5 hover:shadow-lift">
             Pedir ahora
@@ -110,6 +110,7 @@ export function Navbar() {
             to="/login"
             variant="heroYellowTransparent"
             activeOptions={{ exact: true }}
+            className="py-1!"
           >
             Login
           </GenericButton>

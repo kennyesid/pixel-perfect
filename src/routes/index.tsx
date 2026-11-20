@@ -142,7 +142,6 @@ function Home() {
                   as={Link}
                   to="/menu"
                   variant="heroPrimary"
-                // className="w-full sm:w-auto text-lg px-8 py-4 shadow-xl hover:-translate-y-1 transition-transform"
                 >
                   Ver menú
                 </GenericButton>
