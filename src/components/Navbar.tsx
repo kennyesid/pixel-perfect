@@ -49,20 +49,15 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // 1. Las clases de los enlaces cambian según el scroll
-  // (Si el fondo es amarillo, el texto debe ser oscuro o primary para que se lea)
+
   const linkBase = "text-sm font-semibold uppercase tracking-wide transition-colors duration-300";
   const linkColor = isScrolled ? "text-foreground/90 hover:text-primary" : "text-white hover:text-secondary";
   return (
-    // <header className="sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur">
     <header className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 border-b ${isScrolled
       ? "bg-cappibluedark border-transparent shadow-md backdrop-blur-md" // Fondo Amarillo al bajar
       : "bg-cappibluedark border-transparent backdrop-blur-sm" // Transparente al inicio
       }`}>
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5">
-        {/* <Link to="/" className="font-display text-2xl font-extrabold text-primary">
-          Capy<span className="text-foreground">Waffles</span>
-        </Link> */}
         <Link to="/" className="flex items-center gap-2 group">
           <img
             src="/images/login/cappi-waffle-along.png"
@@ -71,7 +66,6 @@ export function Navbar() {
           />
         </Link>
         <div className="hidden items-center gap-8 md:flex">
-          {/* <Link to="/" className={link} activeProps={{ className: "text-white" }} activeOptions={{ exact: true }}>Inicio</Link> */}
           <GenericButton
             as={Link}
             to="/"
@@ -80,7 +74,6 @@ export function Navbar() {
           >
             INICIO
           </GenericButton>
-          {/* <Link to="/menu" className={link} activeProps={{ className: "text-white" }}>Menú</Link> */}
           <GenericButton
             as={Link}
             to="/menu"
@@ -89,7 +82,6 @@ export function Navbar() {
           >
             MENÚ
           </GenericButton>
-          {/* <a href="/#nosotros" className={link}>Nosotros</a> */}
           <GenericButton
             as={Link}
             to="/#nosotros"
@@ -100,11 +92,7 @@ export function Navbar() {
           </GenericButton>
         </div>
         <div className="flex items-center gap-3">
-          {/* <ThemeToggle /> */}
           <CartLink />
-          {/* <Link to="/menu" className="rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground shadow-soft transition hover:-translate-y-0.5 hover:shadow-lift">
-            Pedir ahora
-          </Link> */}
           <GenericButton
             as={Link}
             to="/login"
