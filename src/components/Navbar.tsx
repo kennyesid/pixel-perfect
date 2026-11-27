@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Moon, ShoppingBag, ShoppingCart, Sun } from "lucide-react";
+import { Menu, Moon, ShoppingBag, ShoppingCart, Sun, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart";
 import GenericButton from "./ui/button/GenericButton";
@@ -38,39 +38,36 @@ function ThemeToggle() {
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const link = "text-sm font-semibold uppercase tracking-wide text-white transition hover:text-primary";
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
-      // Si baja más de 20px, activamos el fondo
       setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Verificar al cargar
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-
-  const linkBase = "text-sm font-semibold uppercase tracking-wide transition-colors duration-300";
-  const linkColor = isScrolled ? "text-foreground/90 hover:text-primary" : "text-white hover:text-secondary";
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 border-b ${isScrolled
-      ? "bg-cappibluedark border-transparent shadow-md backdrop-blur-md" // Fondo Amarillo al bajar
-      : "bg-cappibluedark border-transparent backdrop-blur-sm" // Transparente al inicio
+      ? "bg-cappibluedark border-transparent shadow-md backdrop-blur-md"
+      : "bg-cappibluedark border-transparent backdrop-blur-sm"
       }`}>
       <nav className="grid h-16 w-full grid-cols-12 items-center px-3 sm:px-6">
-        {/* Sección 1: Imagen pegada a la izquierda */}
-        <div className="col-span-4 flex items-center justify-start justify-self-start sm:col-span-4">
-          <Link to="/" className="flex items-center">
+        {/* Sección 1: Logo */}
+        <div className="col-span-6 flex items-center justify-start justify-self-start md:col-span-4">
+          <Link to="/" onClick={() => setIsMenuOpen(false)} className="flex items-center">
             <img
               src="/images/login/cappi-waffle-along_v2.webp"
               alt="CapyWaffles Logo"
-              className="h-10 w-10 object-contain sm:h-12 sm:w-12"
+              className="h-10 w-10 object-contain sm:h-12 sm:w-12 lg:h-18 lg:w-18"
             />
           </Link>
         </div>
 
-        {/* Sección 2: Botones centrales expandidos sin deformarse en hover */}
-        <div className="col-span-4 sm:col-span-4">
+        {/* Sección 2: Botones centrales (solo escritorio desde md) */}
+        <div className="hidden md:block md:col-span-4">
           <div className="grid w-full grid-cols-3 gap-1 sm:gap-2">
             <GenericButton
               as={Link}
@@ -102,8 +99,8 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Sección 3: Derecha */}
-        <div className="col-span-4 flex items-center justify-end justify-self-end gap-2 sm:gap-3">
+        {/* Sección 3: Derecha + Hamburguesa en móvil */}
+        <div className="col-span-6 flex items-center justify-end justify-self-end gap-2 md:col-span-4 sm:gap-3">
           <CartLink />
           <GenericButton
             as={Link}
@@ -114,8 +111,55 @@ export function Navbar() {
           >
             Login
           </GenericButton>
+          <button
+            type="button"
+            onClick={() => setIsMenuOpen((prev) => !prev)}
+            aria-label={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={isMenuOpen}
+            className="grid h-9 w-9 place-items-center rounded-lg border border-white/20 text-white transition hover:bg-white/10 md:hidden"
+          >
+            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
         </div>
       </nav>
+
+      {/* Menú desplegable móvil */}
+      {isMenuOpen && (
+        <div className="border-t border-white/10 bg-cappibluedark px-4 py-4 md:hidden">
+          <div className="flex flex-col gap-2">
+            <GenericButton
+              as={Link}
+              to="/"
+              variant="heroYellowNavbarTransparent"
+              activeOptions={{ exact: true }}
+              onClick={() => setIsMenuOpen(false)}
+              className="w-full justify-center text-center"
+            >
+              INICIO
+            </GenericButton>
+            <GenericButton
+              as={Link}
+              to="/menu"
+              variant="heroYellowNavbarTransparent"
+              activeOptions={{ exact: true }}
+              onClick={() => setIsMenuOpen(false)}
+              className="w-full justify-center text-center"
+            >
+              MENÚ
+            </GenericButton>
+            <GenericButton
+              as={Link}
+              to="/#nosotros"
+              variant="heroYellowNavbarTransparent"
+              activeOptions={{ exact: true }}
+              onClick={() => setIsMenuOpen(false)}
+              className="w-full justify-center text-center"
+            >
+              NOSOTROS
+            </GenericButton>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
