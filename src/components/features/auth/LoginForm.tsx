@@ -50,13 +50,13 @@ export function LoginForm() {
     <div className="mx-auto w-full max-w-6xl overflow-hidden rounded-3xl bg-card shadow-soft border border-border/70">
       <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[620px]">
         {/* COLUMNA 1: Banner / Registro con Imagen */}
-        <div className="relative flex flex-col justify-between overflow-hidden bg-gradient-to-br from-cappibluedark via-[#1a384c] to-[#0c1f2d] p-8 text-white lg:col-span-5 lg:p-10">
+        <div className="relative flex flex-col overflow-hidden text-white lg:col-span-5 min-h-[500px]">
           {/* Fondo decorativo sutil */}
-          <div className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-primary/20 blur-3xl"></div>
-          <div className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-cappiyellow/15 blur-3xl"></div>
+          {/* <div className="pointer-events-none absolute -top-24 -left-24 h-72 w-72 rounded-full bg-primary/20 blur-3xl"></div>
+          <div className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-cappiyellow/15 blur-3xl"></div> */}
 
           {/* Sección Superior: Texto y Botón de Registro */}
-          <div className="relative z-10 text-center space-y-4 pt-2">
+          <div className="relative z-10 text-center space-y-4 pt-8 px-8 pb-4 bg-gradient-to-b from-black/50 to-transparent">
             <p className="text-base font-medium text-slate-100/90 leading-relaxed max-w-sm mx-auto">
               ¿Aún no tienes una cuenta? Regístrate para realizar pedidos y acceder a múltiples beneficios.
             </p>
@@ -72,12 +72,12 @@ export function LoginForm() {
           </div>
 
           {/* Imagen Central / Inferior */}
-          <div className="relative z-10 mt-6 flex flex-1 items-center justify-center">
-            <div className="group relative w-full max-w-xs overflow-hidden rounded-2xl border border-white/10 shadow-2xl transition duration-500 hover:scale-[1.02]">
+          <div className="absolute inset-0 z-0">
+            <div className="group relative h-full w-full overflow-hidden transition duration-500">
               <img
                 src="/images/page/one/login-image.webp"
                 alt="CapyWaffles Delicias"
-                className="h-64 w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                className="h-full w-full object-cover"
                 loading="eager"
                 onError={(e) => {
                   // Fallback visual en caso de ruta
