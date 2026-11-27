@@ -267,9 +267,7 @@ function Home() {
         // Lógica para reclamar oferta
         onClaimDeal={() => {
           console.log("¡Cupón WELCOME20 aplicado al carrito!");
-          // Lógica extra como: agregarCuponAZustand()
         }}
-        // Lógica para ver el menú
         onViewMenu={() => {
           navigate({ to: "/menu" });
         }}

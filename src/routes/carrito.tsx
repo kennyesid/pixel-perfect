@@ -8,6 +8,7 @@ import { useCart } from "@/lib/cart";
 import { formatPrice, productImage } from "@/lib/catalog";
 import type { Product } from "@/types";
 import GenericButton from "@/components/ui/button/GenericButton";
+import { ResponsiveModal } from "@/components/ui/modal/ResponsiveModal";
 
 export const Route = createFileRoute("/carrito")({
   head: () => ({
@@ -29,6 +30,7 @@ function CartPage() {
   const [pos, setPos] = useState<{ lat: number; lng: number } | null>(null);
   const [locStatus, setLocStatus] = useState<"idle" | "loading" | "error">("idle");
   const fee = km === null ? 0 : deliveryFee(km);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
   const setLocation = (p: { lat: number; lng: number }, d: number) => {
     setPos(p);
@@ -49,12 +51,16 @@ function CartPage() {
     );
   };
 
+  const handleConfirmOrder = () => {
+    // Aquí puedes ejecutar lógica extra si luego la necesitas (ej. limpiar carrito o enviar pedido)
+    setIsConfirmModalOpen(false);
+  };
+
   if (items.length === 0) {
     return (
       <div className="mx-auto max-w-3xl px-5 py-24 text-center">
         <h1 className="text-5xl font-extrabold text-cappiblue">Tu carrito está vacío</h1>
         <p className="mt-4 text-muted-foreground pb-4">Agrega algo delicioso desde el menú.</p>
-        {/* <Link to="/menu" className="mt-8 inline-block rounded-full bg-primary px-8 py-4 font-bold text-primary-foreground shadow-lift">Ver menú</Link> */}
         <GenericButton
           as={Link}
           to="/menu"
@@ -122,17 +128,32 @@ function CartPage() {
           </div>
           <p className="mt-2 text-xs text-muted-foreground">Toca el mapa o arrastra el marcador rojo para indicar dónde entregamos. Envío: 1 por cada km desde nuestra tienda (Av. 10 #36, El Alto).</p>
           <div className="mt-4 flex justify-between border-t border-border pt-4 text-xl font-extrabold pb-2"><span>Total</span><span className="text-cappiblue">{formatPrice(total + fee)}</span></div>
-          {/* <button className="mt-6 w-full rounded-full bg-primary py-4 font-bold text-primary-foreground shadow-lift transition hover:-translate-y-0.5" onClick={() => alert("¡Pedido recibido! Pronto habilitaremos el pago en línea.")}>
-            Confirmar pedido
-          </button> */}
-          <GenericButton
+          {/* <GenericButton
             as="button"
             variant="heroYellowBorderBlue"
             onClick={() => alert("¡Pedido recibido! Pronto habilitaremos el pago en línea.")}
             className="w-full"
           >
             Confirmar pedido
+          </GenericButton> */}
+          <GenericButton
+            as="button"
+            variant="heroYellowBorderBlue"
+            onClick={() => setIsConfirmModalOpen(true)}
+            className="w-full"
+          >
+            Confirmar pedido
           </GenericButton>
+
+          <ResponsiveModal
+            isOpen={isConfirmModalOpen}
+            onClose={() => setIsConfirmModalOpen(false)}
+            onConfirm={handleConfirmOrder}
+            title="Pedido"
+            confirmText="Entendido"
+          >
+            <p>Pronto habilitaremos el pago en línea, esperanos por favor.</p>
+          </ResponsiveModal>
         </aside>
       </div>
     </div>

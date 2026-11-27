@@ -1,6 +1,7 @@
 import * as React from "react";
 import { X } from "lucide-react";
 import { createPortal } from "react-dom";
+import GenericButton from "../button/GenericButton";
 
 export type ModalSize = "sm" | "md" | "lg" | "xl" | "4xl" | "full";
 
@@ -72,21 +73,21 @@ export function ResponsiveModal({
                     {children}
                 </div>
                 <div className="p-4 border-t border-border bg-gray-50 flex justify-end gap-2 flex-shrink-0">
-                    {/* <ButtonGeneric
+                    <GenericButton
                         onClick={onClose}
                         disabled={isProcessing}
                         variant="cancelGray"
                     >
                         {cancelText}
-                    </ButtonGeneric> */}
+                    </GenericButton>
 
-                    {/* <ButtonGeneric
+                    <GenericButton
                         onClick={onConfirm}
                         disabled={isProcessing}
-                        variant="primary"
+                        variant="heroBlueTransparent"
                     >
                         {confirmText}
-                    </ButtonGeneric> */}
+                    </GenericButton>
                 </div>
             </div>
         </div>,
