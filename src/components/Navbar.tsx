@@ -7,10 +7,10 @@ import GenericButton from "./ui/button/GenericButton";
 function CartLink() {
   const { count } = useCart();
   return (
-    <Link to="/carrito" aria-label="Ver carrito" className="relative grid h-10 w-10 place-items-center rounded-full border border-border bg-card text-foreground transition hover:scale-105 ">
-      <ShoppingCart className="h-5 w-5" />
+    <Link to="/carrito" aria-label="Ver carrito" className="relative grid h-8 w-8 place-items-center rounded-full border border-border bg-card text-foreground transition hover:scale-105 ">
+      <ShoppingCart className="h-4 w-4" />
       {count > 0 && (
-        <span className="absolute -right-1 -top-1 grid h-5 min-w-5 place-items-center rounded-full bg-cappiblue px-1 text-xs font-bold text-primary-foreground">{count}</span>
+        <span className="absolute -right-1 -top-1 grid h-4 min-w-4 place-items-center rounded-full bg-cappiblue px-1 text-xs font-bold text-primary-foreground">{count}</span>
       )}
     </Link>
   );
@@ -57,48 +57,60 @@ export function Navbar() {
       ? "bg-cappibluedark border-transparent shadow-md backdrop-blur-md" // Fondo Amarillo al bajar
       : "bg-cappibluedark border-transparent backdrop-blur-sm" // Transparente al inicio
       }`}>
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5">
-        <Link to="/" className="flex items-center gap-2 group">
-          <img
-            src="/images/login/cappi-waffle-along.png"
-            alt="CapyWaffles Logo"
-            className="h-12 w-12 object-contain transition-transform duration-300 group-hover:scale-110"
-          />
-        </Link>
-        <div className="hidden items-center gap-8 md:flex">
-          <GenericButton
-            as={Link}
-            to="/"
-            variant="heroYellowNavbarTransparent"
-            activeOptions={{ exact: true }}
-          >
-            INICIO
-          </GenericButton>
-          <GenericButton
-            as={Link}
-            to="/menu"
-            variant="heroYellowNavbarTransparent"
-            activeOptions={{ exact: true }}
-          >
-            MENÚ
-          </GenericButton>
-          <GenericButton
-            as={Link}
-            to="/#nosotros"
-            variant="heroYellowNavbarTransparent"
-            activeOptions={{ exact: true }}
-          >
-            NOSOTROS
-          </GenericButton>
+      <nav className="grid h-16 w-full grid-cols-12 items-center px-3 sm:px-6">
+        {/* Sección 1: Imagen pegada a la izquierda */}
+        <div className="col-span-4 flex items-center justify-start justify-self-start sm:col-span-4">
+          <Link to="/" className="flex items-center">
+            <img
+              src="/images/login/cappi-waffle-along_v2.webp"
+              alt="CapyWaffles Logo"
+              className="h-10 w-10 object-contain sm:h-12 sm:w-12"
+            />
+          </Link>
         </div>
-        <div className="flex items-center gap-3">
+
+        {/* Sección 2: Botones centrales expandidos sin deformarse en hover */}
+        <div className="col-span-4 sm:col-span-4">
+          <div className="grid w-full grid-cols-3 gap-1 sm:gap-2">
+            <GenericButton
+              as={Link}
+              to="/"
+              variant="heroYellowNavbarTransparent"
+              activeOptions={{ exact: true }}
+              className="text-center"
+            >
+              INICIO
+            </GenericButton>
+            <GenericButton
+              as={Link}
+              to="/menu"
+              variant="heroYellowNavbarTransparent"
+              activeOptions={{ exact: true }}
+              className="text-center"
+            >
+              MENÚ
+            </GenericButton>
+            <GenericButton
+              as={Link}
+              to="/#nosotros"
+              variant="heroYellowNavbarTransparent"
+              activeOptions={{ exact: true }}
+              className="text-center"
+            >
+              NOSOTROS
+            </GenericButton>
+          </div>
+        </div>
+
+        {/* Sección 3: Derecha */}
+        <div className="col-span-4 flex items-center justify-end justify-self-end gap-2 sm:gap-3">
           <CartLink />
           <GenericButton
             as={Link}
             to="/login"
             variant="heroYellowTransparent"
             activeOptions={{ exact: true }}
-            className="py-1!"
+            className="!py-1 px-3 text-xs hover:scale-100"
           >
             Login
           </GenericButton>
